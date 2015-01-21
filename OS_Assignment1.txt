@@ -1,0 +1,83 @@
+S.no.           	Task					Command      
+
+1.	Login as guest (password is guest123)	: 	 sudo login hduser; su hduser	
+
+2.	Find the present Directory  		: 	pwd
+
+3.	Write the / directory structure		:	tree downloads
+
+4.	Write a few commands available in /bin and 	:	/bin -> cat, chmod, chown, chgrp, chown 
+	/sbin directory				/sbin -> chkconfig, dhcpclient,fsck
+
+5.	Find the guest directory		:	/home/hduser
+
+6.	Write the permissions of guest directory	:	ls -la
+	
+7.	Create a new Directory test in guest directory	:	sudo mkdir hduser/test
+
+8.	Write the permissions of test directory	:	ls -la
+
+9.	Copy the file /etc/resolv.conf in test directory	:	sudo cp etc/resolv.conf  home/hduser/test
+
+10.	Rename the test directory to testing	:	sudo mv home/hduser/test home/hduser/testing
+
+11.	Delete the testing directory		:	rm -rf home/hduser/testing
+
+12.	Change the permissions of guest directory to	: 	sudo chmod 775 home/hduser
+	775
+
+13.	Change the permissions of /tmp directory to 	:	sudo chmod 700 tmp
+	700
+
+14.	Login as root user			: 	sudo -s; sudo su; su root
+
+15.	Change the permissions of guest directory to 	:	chmod 700 home/hduser
+	700
+
+16.	The location of kernel files in Unix File System:	uname -r 
+	is /boot and by looking at the kernel file, write 
+	the kernel version you are using in your system.
+
+17.	Login as guest			: 	login admin-hp
+
+18.	Change directory to /			: 	cd /
+
+19.	List the contents of /home directory	: 	ls -a
+
+20.	Find the group to which guest belongs	:	groups
+
+21.	Create a file sidbi in the home area of guest 	: 	sudo touch home/hduser/sidbi
+	(hint: use touch command)
+
+22.	Find the permissions of the file sidbi	:	ls -la
+
+23.	Find the inode number of file sidbi 	: 	ls -li
+	(hint: ls –li)
+
+24.	Copy the file sidbi to sidbi1		: 	cp sidbi sidbi1
+
+25.	Find the inode number of file sidbi1 	:	ls -li
+	(hint: ls –li)
+
+26.	Move the file sidbi to sidbi2		:	mv sidbi sidbi2
+
+27.	Find the inode number of file sidbi2 	: 	ls -li
+	(hint: ls –li)
+	
+28.	Move sidbi2 to sidbi			: 	mv sidbi2 sidbi
+
+29.	Login as root			: 	sudo su; su root; sudo -s
+
+30.	Create a new user guest1 with same group 
+	as guest 
+                   (hint: use GUI tool Applications System Settings :
+	Users and Groups)
+
+31.	Create a new user guest2 with a different 	:
+	group than the group of guest (hint: use GUI 
+	tool Applications System Settings Users and Groups)
+
+32.	Find, what permissions should the file 	:	It should have 644 access permissions
+	sidbi have, so that both guest1 
+	and guest2 can write into this file.
+
