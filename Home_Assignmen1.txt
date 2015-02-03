@@ -1,0 +1,100 @@
+1. Consider the following C code that calls fork(). If you assume that the child process is always
+scheduled before the parent process, what will be the output?
+int main()
+{
+int i;
+for (i = 0; i < 3; i++) {
+if (fork() == 0) {
+printf("Child sees i = %d\n", i);
+exit(1);
+} else {
+printf("Parent sees i = %d\n", i);
+}
+}
+}
+
+
+Answer1:-
+If the Child Process is ALWAYS scheduled earlier:
+Child sees i=0
+Parent sees i=0
+Child sees i=1
+Parent sees i=1
+Child sees i=2
+Parent sees i=2
+
+
+
+
+2. Consider the following C code that creates and joins with two threads. Assuming that the threads are
+scheduled completely before the parent process (i.e., have a higher priority), what will be the output
+from running this program? Be careful! There is a significant trick!
+int a = 0;
+void *print_fn(void *ptr)
+{
+int tid = *(int *)ptr;
+int b = 0;a++; b++;
+printf("id: %d a:%d b: %d\n", tid, a, b);
+while (1); // Spin-wait here forever
+}
+int main()
+{
+pthread_t t1, t2;
+int tid1 = 1;
+int tid2 = 2;
+int ret1, ret2;
+a++;
+printf("Parent says a: %d\n", a);
+ret1 = pthread_create(&t1, NULL, print_fn, (void *)&tid1);
+ret2 = pthread_create(&t2, NULL, print_fn, (void *)&tid2);
+if (ret1 || ret2) {
+fprintf(stderr, "ERROR: pthread_create failed\n");
+exit(1);
+}
+if (pthread_join(t1, NULL)) {
+perror("join of t1");exit(1);
+}
+if (pthread_join(t2, NULL)) {if (pthread_join(t2, NULL)) {
+perror("join of t2");
+exit(1);
+}
+printf("Thread 1 and 2 complete\n");
+}
+
+
+
+
+Answer2:-
+If the threads are completely scheduled before the parent process:-
+id: 1(or2) a:1 b:1
+id: 2(or1) a:2 b:1
+Parent says a:3
+
+Explanation: The 2 threads will ultimately go into infinite loop and since the pthread_join functions are used, the program will continue indefinitely.   
+Assumption: In the given program, the 2 threads were created inside the main() and the question asks for scheduling the threads before the parent process. In order to allow independent execution of the threads, I have assumed that they have been created outside main() procedure, however the join functions have been considered within main() procedure.
+
+
+
+
+
+3. In some multi-threaded applications, m user-level threads are mapped to n kernel-level threads. Why
+can this be a good idea (compared to using only user-level or only kernel-level threads)?
+For what relative values of m and n is this mapping a possibility (or at all reasonable)? For which relative
+values is this the best choice?
+m >> n
+m > n
+m (approx) = n
+m < n
+m << n
+
+
+
+
+Answer3:-
+Advantage over kernel only threading is that you can use fewer resources like memory. Also we can take advantage of context switching with less overheads. 
+Advantage over user only thread is that one can take advantage of multiple CPUs. Also if one of the threads block, another kernel thread can use CPU more efficiently.
+
+m>>n
+
+The greater the number of user level threads, the more advantage we can take of having context change with fewer overheads. 
+here n can be the number of processors.
