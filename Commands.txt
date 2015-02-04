@@ -1,0 +1,11 @@
+1) cat *.txt
+2) DISPLAY=:0 firefox http://www.google.com: No such file or 		directory
+3) grep -v and *
+4) gzip *.dat gunzip.dat.gz
+5) ls -a
+6) ls -LR
+7) PATH=$PATH:~/users/
+8) sort -r
+9) ln public_html/myfile.txt
+10) grep ; example: grep -i hello * will list all the files in the current directory containing the string "hello"
+ 
