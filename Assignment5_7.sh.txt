@@ -1,0 +1,5 @@
+echo "alphabet- "
+read a
+
+echo "All files starting with the alphabet $a are - "
+ls $a*
