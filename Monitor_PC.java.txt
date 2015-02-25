@@ -1,0 +1,76 @@
+//References: Varsha Teckchandani
+class get_put {
+int num;
+
+synchronized int remove_item() {
+    try {
+        notify(); //producer gets notified by the consumer it is getting the resource i.e. selects other thread to run 
+        wait();   //for mutual exclusion i.e. places thread in a dormant state by releasing the calling thread's locks on 									 shared data 
+    } catch (InterruptedException e) {
+        System.out.println("\nException occured\n"); //In case of exception 
+    }
+    System.out.println("Got the following: " + num); 
+    return num; 
+}
+
+
+ 
+
+
+synchronized void insert_item(int num) {
+    try {
+        notify(); //consumer gets notified that producer is putting the resource
+        wait();  // for mutual exclusion
+    } catch (InterruptedException e) {
+        System.out.println("Exception found"); 
+    }
+    this.num = num;
+    System.out.println("put- " + num); 
+    }
+}
+ 
+
+class Producer implements Runnable {
+get_put a;
+ 
+Producer(get_put a) {
+    this.a = a;
+    new Thread(this, "Producer").start(); //initializes threads and calls the run function
+}
+ 
+
+
+public void run() {
+    int i = 20;
+    while (i<25) {
+    a.insert_item((i++) % 5); //calls the put function to put the values in it when producer wants
+    }
+}
+}
+ 
+ 
+
+
+class Consumer implements Runnable {
+get_put a;
+ 
+Consumer(get_put a) {
+    this.a = a;
+    new Thread(this, "Consumer").start(); //initializes the threads and calls the run function
+}
+ 
+public void run() {
+    while (true) {
+    a.remove_item(); //calls the get function to get the values inserted by producer
+    }
+}
+}
+ 
+class Monitor_PC {
+public static void main(String args[]) {
+    get_put a = new get_put();
+    new Producer(a); //call producer
+    new Consumer(a); //call consumer
+  
+}
+}
